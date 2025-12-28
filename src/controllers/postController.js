@@ -1,39 +1,48 @@
-const postModel = require("../models/postModel");
+const Post = require("../models/postModel");
 
 // GET /
-exports.getAllPosts = (req, res) => {
-  const posts = postModel.getAll();
-  res.render("index", { posts });
+exports.getHome = (req, res) => {
+  const posts = Post.getAll();
+  res.render("index", { pageTitle: "WeblogES | Home", posts });
 };
 
 // GET /posts/new
-exports.showCreateForm = (req, res) => {
-  res.render("posts/new");
+exports.getNewPostForm = (req, res) => {
+  res.render("posts/new", { pageTitle: "Create a Post" });
 };
 
 // POST /posts
 exports.createPost = (req, res) => {
   const { title, content } = req.body;
-  postModel.create({ title, content });
+  Post.create({ title, content });
   res.redirect("/");
 };
 
+// GET /posts/:id
+exports.getSinglePost = (req, res) => {
+  const post = Post.getById(req.params.id);
+  if (!post) return res.status(404).send("Post not found");
+  res.render("posts/show", { pageTitle: post.title, post });
+};
+
 // GET /posts/:id/edit
-exports.showEditForm = (req, res) => {
-  const post = postModel.getById(req.params.id);
-  if (!post) return res.send("پست پیدا نشد");
-  res.render("posts/edit", { post });
+exports.getEditPostForm = (req, res) => {
+  const post = Post.getById(req.params.id);
+  if (!post) return res.status(404).send("Post not found");
+  res.render("posts/edit", { pageTitle: "Edit Post", post });
 };
 
 // PUT /posts/:id
 exports.updatePost = (req, res) => {
   const { title, content } = req.body;
-  postModel.update(req.params.id, { title, content });
-  res.redirect("/");
+  const updated = Post.update(req.params.id, { title, content });
+  if (!updated) return res.status(404).send("Post not found");
+  res.redirect(`/posts/${req.params.id}`);
 };
 
 // DELETE /posts/:id
 exports.deletePost = (req, res) => {
-  postModel.remove(req.params.id);
+  const deleted = Post.delete(req.params.id);
+  if (!deleted) return res.status(404).send("Post not found");
   res.redirect("/");
 };

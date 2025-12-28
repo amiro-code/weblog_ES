@@ -5,20 +5,18 @@ const methodOverride = require("method-override");
 const postRoutes = require("./routes/postRoutes");
 
 const app = express();
-
-// ⭐️ IMPORTANT FOR RENDER
 const PORT = process.env.PORT || 3000;
 
-// 1) Body parser (for form data)
+// 1) body parser (برای فرم‌ها)
 app.use(express.urlencoded({ extended: true }));
 
-// 2) Method override (for PUT & DELETE via forms)
+// 2) method override برای PUT و DELETE از طریق فرم
 app.use(methodOverride("_method"));
 
-// 3) Static files (css, etc.)
+// 3) فایل‌های استاتیک (css و ...)
 app.use(express.static(path.join(__dirname, "public")));
 
-// 4) View engine setup (EJS)
+// 4) EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 

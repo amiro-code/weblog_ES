@@ -1,24 +1,35 @@
 const express = require("express");
 const router = express.Router();
 
-const postController = require("../controllers/postController");
+const {
+  getHome,
+  getNewPostForm,
+  createPost,
+  getSinglePost,
+  getEditPostForm,
+  updatePost,
+  deletePost,
+} = require("../controllers/postController");
 
-// صفحه اصلی (لیست پست‌ها)
-router.get("/", postController.getAllPosts);
+// Home (list posts)
+router.get("/", getHome);
 
-// صفحه ساخت پست جدید
-router.get("/posts/new", postController.showCreateForm);
+// New post form
+router.get("/posts/new", getNewPostForm);
 
-// ساخت پست
-router.post("/posts", postController.createPost);
+// Create post
+router.post("/posts", createPost);
 
-// صفحه ویرایش
-router.get("/posts/:id/edit", postController.showEditForm);
+// Show single post  ✅ همین route ارور تو رو حل می‌کنه
+router.get("/posts/:id", getSinglePost);
 
-// آپدیت پست
-router.put("/posts/:id", postController.updatePost);
+// Edit post form
+router.get("/posts/:id/edit", getEditPostForm);
 
-// حذف پست
-router.delete("/posts/:id", postController.deletePost);
+// Update post
+router.put("/posts/:id", updatePost);
 
-module.exports = router;   // ⬅️ این خط خیلی مهمه
+// Delete post
+router.delete("/posts/:id", deletePost);
+
+module.exports = router;

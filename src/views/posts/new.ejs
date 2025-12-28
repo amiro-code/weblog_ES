@@ -1,27 +1,20 @@
-<%- include("../partials/header", { title: "New Post — Weblog ES" }) %>
+<%- include("../partials/header") %>
 
-<section class="formWrap">
-  <div class="container">
-    <div class="formCard">
-      <h1 style="margin:0 0 6px;">Create a new post</h1>
-      <p style="margin:0 0 14px; color: var(--muted); line-height:1.7;">
-        Write a title and your content, then publish it.
-      </p>
-
-      <form action="/posts" method="POST">
-        <label for="title">Title</label>
-        <input id="title" name="title" type="text" placeholder="e.g. My first post" required />
-
-        <label for="content">Content</label>
-        <textarea id="content" name="content" placeholder="Write your post content..." required></textarea>
-
-        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
-          <button class="btn primary" type="submit">Publish</button>
-          <a class="btn" href="/">Cancel</a>
-        </div>
-      </form>
-    </div>
+<section class="card">
+  <div class="card__header">
+    <h2>Create New Post</h2>
+    <a class="link" href="/">Back</a>
   </div>
+
+  <form class="form" action="/posts" method="POST">
+    <label class="label">Title</label>
+    <input class="input" name="title" placeholder="e.g. My first post" required />
+
+    <label class="label">Content</label>
+    <textarea class="textarea" name="content" rows="10" placeholder="Write something..." required></textarea>
+
+    <button class="btn" type="submit">Publish</button>
+  </form>
 </section>
 
 <%- include("../partials/footer") %>

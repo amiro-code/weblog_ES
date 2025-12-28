@@ -1,26 +1,24 @@
-<%- include("../partials/header", { title: (post?.title || "Post") + " — Weblog ES" }) %>
+<%- include("../partials/header") %>
 
-<section class="container" style="padding: 22px 0 34px;">
-  <div class="formCard">
-    <div class="meta">
-      <span>#<%= post.id %></span>
-      <% if (post.createdAt) { %> • <span><%= post.createdAt %></span> <% } %>
-    </div>
+<section class="card">
+  <div class="card__header">
+    <h2><%= post.title %></h2>
+    <div class="actions">
+      <a class="btn btn--ghost" href="/posts/<%= post.id %>/edit">Edit</a>
 
-    <h1 style="margin:0 0 10px;"><%= post.title %></h1>
-
-    <div style="color: var(--muted); line-height: 1.9; white-space: pre-wrap;">
-      <%= post.content %>
-    </div>
-
-    <div style="display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;">
-      <a class="btn" href="/">Back</a>
-      <a class="btn" href="/posts/<%= post.id %>/edit">Edit</a>
-      <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
-        <button class="btn danger" type="submit" onclick="return confirm('Delete this post?')">Delete</button>
+      <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Delete this post?');">
+        <button class="btn btn--danger" type="submit">Delete</button>
       </form>
+
+      <a class="link" href="/">Back</a>
     </div>
   </div>
+
+  <p class="muted">Created: <%= new Date(Number(post.createdAt)).toLocaleString() %></p>
+
+  <article class="content">
+    <%= post.content.replace(/\n/g, "<br/>") %>
+  </article>
 </section>
 
 <%- include("../partials/footer") %>
