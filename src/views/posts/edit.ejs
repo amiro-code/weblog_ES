@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>ویرایش پست</title>
+</head>
+<body>
+
+<h1>ویرایش پست</h1>
+
+<form action="/posts/<%= post.id %>?_method=PUT" method="POST">
+  <div>
+    <label>عنوان</label><br>
+    <input name="title" value="<%= post.title %>">
+  </div>
+
+  <div>
+    <label>متن</label><br>
+    <textarea name="content"><%= post.content %></textarea>
+  </div>
+
+  <button type="submit">ذخیره</button>
+</form>
+
+<br>
+<a href="/">بازگشت</a>
+
+</body>
+</html>

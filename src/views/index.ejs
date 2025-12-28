@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>وبلاگ ساده</title>
+</head>
+<body>
+
+<h1>وبلاگ ساده</h1>
+
+<a href="/posts/new">➕ ایجاد پست جدید</a>
+<hr>
+
+<% if (posts.length === 0) { %>
+  <p>هیچ پستی وجود ندارد.</p>
+<% } %>
+
+<% posts.forEach(post => { %>
+  <div>
+    <h3><%= post.title %></h3>
+    <p><%= post.content %></p>
+
+    <a href="/posts/<%= post.id %>/edit">ویرایش</a>
+
+    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+      <button type="submit">حذف</button>
+    </form>
+  </div>
+  <hr>
+<% }) %>
+
+</body>
+</html>
