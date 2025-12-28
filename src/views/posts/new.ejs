@@ -1,29 +1,27 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>ایجاد پست</title>
-</head>
-<body>
+<%- include("../partials/header", { title: "New Post — Weblog ES" }) %>
 
-<h1>ایجاد پست جدید</h1>
+<section class="formWrap">
+  <div class="container">
+    <div class="formCard">
+      <h1 style="margin:0 0 6px;">Create a new post</h1>
+      <p style="margin:0 0 14px; color: var(--muted); line-height:1.7;">
+        Write a title and your content, then publish it.
+      </p>
 
-<form action="/posts" method="POST">
-  <div>
-    <label>عنوان</label><br>
-    <input name="title">
+      <form action="/posts" method="POST">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" placeholder="e.g. My first post" required />
+
+        <label for="content">Content</label>
+        <textarea id="content" name="content" placeholder="Write your post content..." required></textarea>
+
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <button class="btn primary" type="submit">Publish</button>
+          <a class="btn" href="/">Cancel</a>
+        </div>
+      </form>
+    </div>
   </div>
+</section>
 
-  <div>
-    <label>متن</label><br>
-    <textarea name="content"></textarea>
-  </div>
-
-  <button type="submit">ثبت</button>
-</form>
-
-<br>
-<a href="/">بازگشت</a>
-
-</body>
-</html>
+<%- include("../partials/footer") %>

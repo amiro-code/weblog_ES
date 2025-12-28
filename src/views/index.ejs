@@ -1,33 +1,57 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>وبلاگ ساده</title>
-</head>
-<body>
+<%- include("partials/header", { title: "Weblog ES — Home" }) %>
 
-<h1>وبلاگ ساده</h1>
-
-<a href="/posts/new">➕ ایجاد پست جدید</a>
-<hr>
-
-<% if (posts.length === 0) { %>
-  <p>هیچ پستی وجود ندارد.</p>
-<% } %>
-
-<% posts.forEach(post => { %>
-  <div>
-    <h3><%= post.title %></h3>
-    <p><%= post.content %></p>
-
-    <a href="/posts/<%= post.id %>/edit">ویرایش</a>
-
-    <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
-      <button type="submit">حذف</button>
-    </form>
+<section class="hero">
+  <div class="container">
+    <div class="heroCard">
+      <div>
+        <h1>Weblog ES</h1>
+        <p>
+          A clean, minimal blog built with MVC architecture.
+          Create posts, edit them, and delete them — all from a simple interface.
+        </p>
+      </div>
+      <div class="heroActions">
+        <a class="btn primary" href="/posts/new">Create your first post</a>
+        <a class="btn" href="https://github.com/amiro-code/weblog_ES" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
   </div>
-  <hr>
-<% }) %>
+</section>
 
-</body>
-</html>
+<section class="container">
+  <div class="grid">
+    <% if (!posts || posts.length === 0) { %>
+      <div class="empty">
+        No posts yet. Click <b>New post</b> to publish your first article.
+      </div>
+    <% } else { %>
+      <% posts.forEach(function(post){ %>
+        <article class="card">
+          <div class="meta">
+            <span>#<%= post.id %></span>
+            <% if (post.createdAt) { %> • <span><%= post.createdAt %></span> <% } %>
+          </div>
+
+          <h3><%= post.title %></h3>
+
+          <p class="excerpt">
+            <%= (post.content || "").length > 220 ? (post.content.slice(0,220) + "...") : (post.content || "") %>
+          </p>
+
+          <div class="cardActions">
+            <!-- اگر show نداری، می‌تونی این لینک رو حذف کنی -->
+            <a class="btn" href="/posts/<%= post.id %>">Read</a>
+
+            <a class="btn" href="/posts/<%= post.id %>/edit">Edit</a>
+
+            <form action="/posts/<%= post.id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button class="btn danger" type="submit" onclick="return confirm('Delete this post?')">Delete</button>
+            </form>
+          </div>
+        </article>
+      <% }) %>
+    <% } %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>

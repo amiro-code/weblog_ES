@@ -1,29 +1,27 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>ویرایش پست</title>
-</head>
-<body>
+<%- include("../partials/header", { title: "Edit Post — Weblog ES" }) %>
 
-<h1>ویرایش پست</h1>
+<section class="formWrap">
+  <div class="container">
+    <div class="formCard">
+      <h1 style="margin:0 0 6px;">Edit post</h1>
+      <p style="margin:0 0 14px; color: var(--muted); line-height:1.7;">
+        Update your title or content, then save changes.
+      </p>
 
-<form action="/posts/<%= post.id %>?_method=PUT" method="POST">
-  <div>
-    <label>عنوان</label><br>
-    <input name="title" value="<%= post.title %>">
+      <form action="/posts/<%= post.id %>?_method=PUT" method="POST">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" value="<%= post.title %>" required />
+
+        <label for="content">Content</label>
+        <textarea id="content" name="content" required><%= post.content %></textarea>
+
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <button class="btn primary" type="submit">Save</button>
+          <a class="btn" href="/">Back</a>
+        </div>
+      </form>
+    </div>
   </div>
+</section>
 
-  <div>
-    <label>متن</label><br>
-    <textarea name="content"><%= post.content %></textarea>
-  </div>
-
-  <button type="submit">ذخیره</button>
-</form>
-
-<br>
-<a href="/">بازگشت</a>
-
-</body>
-</html>
+<%- include("../partials/footer") %>
